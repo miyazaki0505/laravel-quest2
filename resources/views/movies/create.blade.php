@@ -26,7 +26,8 @@
     {!! Form::close() !!}
 
     <h2 class="mt-5">あなたの登録済み動画</h2>
-    
+    <h2 class="mt-5">あなたの登録済み動画</h2>
+
     @include('movies.movies', ['movies' => $movies])
     
 @endsection

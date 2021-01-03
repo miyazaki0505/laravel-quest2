@@ -27,6 +27,8 @@ Route::group(['prefix' => 'users/{id}'], function() {
     Route::get('followers', 'UsesController@followers')->name('followers');
 });
 
+Route::resource('rest','RestappController', ['only' => ['index', 'show', 'create', 'store', 'destroy']]);
+
 Route::group(['middleware' => 'auth'], function() {
     Route::put('users', 'UsersController@rename')->name('rename');
     
