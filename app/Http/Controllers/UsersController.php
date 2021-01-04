@@ -1,3 +1,4 @@
+  
 <?php
 
 namespace App\Http\Controllers;
@@ -9,9 +10,9 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->paginate(9);
+        $users = User::orderBy('id','desc')->paginate(9);
         
-        return view('welcome', [
+        return view('welcome',[
             'users' => $users,
         ]);
     }
@@ -20,56 +21,56 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
-        
+
         $data=[
             'user' => $user,
             'movies' => $movies,
-            ];
-        
+        ];
+
         $data += $this->counts($user);
-        
-        return view('users.show', $data);
+
+        return view('users.show',$data);
     }
     
     public function rename(Request $request)
     {
-        $this->validate($request, [
-            'channel' => 'required|max:15',
-            'name' => 'required|max:15',
+        $this->validate($request,[
+                'channel' => 'required|max:15',
+                'name' => 'required|max:15',
         ]);
-            
-        $user = \Auth::user();
+
+        $user=\Auth::user();
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
-        
+
         $user->channel = $request->channel;
         $user->name = $request->name;
         $user->save();
         
-        $data = [
+        $data=[
             'user' => $user,
             'movies' => $movies,
-            ];
-            
-        $data += $this->counts($user);
+        ];
         
-        return view('users.show', $data);
+        $data += $this->counts($user);
+
+        return view('users.show',$data);
     }
     
     public function followings($id)
     {
         $user = User::find($id);
         $followings = $user->followings()->paginate(9);
-        
+
         $data = [
             'user' => $user,
             'users' => $followings,
-            ];
-            
-            $data += $this->counts($user);
-            
-            return view('users.followings', $data);
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.followings', $data);
     }
-    
+
     public function followers($id)
     {
         $user = User::find($id);
