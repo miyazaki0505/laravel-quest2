@@ -29,7 +29,7 @@ class MoviesController extends Controller
             'comment' => 'max:36',
         ]);
             
-        $request->user()->movie()->create([
+        $request->user()->movies()->create([
             'url' => $request->url,
             'comment' => $request->comment,
             
